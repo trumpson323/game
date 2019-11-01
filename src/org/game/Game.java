@@ -6,7 +6,10 @@ import java.awt.image.BufferedImage;
 
 import org.display.Display;
 import org.display.SpriteSheet;
-import org.images.ImageLoader;
+import org.images.Assets;
+import org.states.GameState;
+import org.states.MenuState;
+import org.states.State;
 
 
 public class Game implements Runnable{
@@ -24,6 +27,9 @@ public class Game implements Runnable{
 	private BufferedImage testImage;
 	private SpriteSheet sheet;
 	
+	private State gameState;
+	private State menuState;
+	
 	public Game(String title, int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -33,13 +39,18 @@ public class Game implements Runnable{
 	
 	private void init() {
 		display = new Display(title, width, height);
-		testImage = ImageLoader.loadImage("/textures/trump_run.png");
-		sheet = new SpriteSheet(testImage);
+		Assets.init();
+		
+		gameState = new GameState();
+		menuState = new MenuState();
+		State.setState(gameState);
 	}
 	
 	
 	private void update() {
-		
+		if(State.getState() != null) {
+			State.getState().tick();
+		}
 	}
 	
 	private void render() {
@@ -52,7 +63,9 @@ public class Game implements Runnable{
 		
 		g.clearRect(0, 0, width, height);
 		
-		g.drawImage(sheet.crop(0, 0, 100, 100) ,20, 20, null);
+		if(State.getState() != null) {
+			State.getState().render(g);
+		}
 		
 		bs.show();
 		g.dispose();
@@ -62,9 +75,31 @@ public class Game implements Runnable{
 		
 		init();
 		
+		int fps = 60;
+		double timePerTick = 1000000000 / fps;
+		double delta = 0;
+		long now;
+		long lastTime = System.nanoTime();
+		long timer = 0;
+		int ticks = 0;
+		
 		while(running) {
-			update();
-			render();
+			now = System.nanoTime();
+			delta += (now - lastTime) / timePerTick;
+			timer += now - lastTime;
+			lastTime = now;
+			
+			if(delta >= 1) {
+				update();
+				render();
+				ticks++;
+				delta--;
+			}
+			if(timer >= 1000000000) {
+				System.out.println("FPS: " + ticks);
+				ticks = 0;
+				timer = 0;
+			}
 		}
 		stop();
 		
