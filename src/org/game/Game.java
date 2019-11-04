@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import org.display.Display;
 import org.display.SpriteSheet;
 import org.images.Assets;
+import org.input.KeyManager;
 import org.states.GameState;
 import org.states.MenuState;
 import org.states.State;
@@ -30,24 +31,30 @@ public class Game implements Runnable{
 	private State gameState;
 	private State menuState;
 	
+	private KeyManager keyManager;
+	
 	public Game(String title, int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.title = title;
+		keyManager = new KeyManager();
 		
 	}
 	
 	private void init() {
 		display = new Display(title, width, height);
+		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
 		
-		gameState = new GameState();
-		menuState = new MenuState();
+		gameState = new GameState(this);
+		menuState = new MenuState(this);
 		State.setState(gameState);
 	}
 	
 	
 	private void update() {
+		keyManager.tick();
+		
 		if(State.getState() != null) {
 			State.getState().tick();
 		}
@@ -103,6 +110,10 @@ public class Game implements Runnable{
 		}
 		stop();
 		
+	}
+	
+	public KeyManager getKeyManager() {
+		return keyManager;
 	}
 	
 	public synchronized void start() {
