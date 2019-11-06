@@ -12,11 +12,37 @@ public abstract class Creature extends Entity{
 	
 	protected int health;
 	protected float speed;
+	protected float xMove, yMove;
 	
 	public Creature(float x, float y, int width, int height) {
 		super(x, y, width, height);
 		health = DEFAULT_HEALTH;
 		speed = DEFAULT_SPEED;
+		xMove = 0;
+		yMove = 0;
+	}
+	
+	public void move() {
+		x += xMove;
+		y += yMove;
+	}
+
+	
+	//GETTERS SETTERS
+	public float getxMove() {
+		return xMove;
+	}
+
+	public void setxMove(float xMove) {
+		this.xMove = xMove;
+	}
+
+	public float getyMove() {
+		return yMove;
+	}
+
+	public void setyMove(float yMove) {
+		this.yMove = yMove;
 	}
 
 	public int getHealth() {
