@@ -14,8 +14,8 @@ public class Assets {
 		
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/spritesheet.png"));
 		
-		grass = sheet.crop(0, 0, width, height);
-		stone = sheet.crop(width, 0, width, height);
+		grass = sheet.crop(width + 6, 0, width, height);
+		stone = sheet.crop(0, 0, width, height);
 		
 		
 	}

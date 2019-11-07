@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import org.game.Game;
 import org.images.Assets;
+import org.input.KeyManager;
 
 public class Player extends Creature{
 
@@ -16,15 +17,30 @@ public class Player extends Creature{
 
 	@Override
 	public void tick() {
-		
+		getInput();
+		move();
 	}
 
 	private void getInput() {
 		xMove = 0;
 		yMove = 0;
 		
+		if(game.getKeyManager().up) {
+			yMove = -speed;
+		}
+		if(game.getKeyManager().down) {
+			yMove = speed;
+		}
+		if(game.getKeyManager().left) {
+			xMove = -speed;
+		}
+		if(game.getKeyManager().right) {
+			xMove = speed;
+		}
 		
 	}
+		
+	
 	
 	@Override
 	public void render(Graphics g) {
