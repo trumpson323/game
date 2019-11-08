@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import org.display.Display;
+import org.display.GameCamera;
 import org.display.SpriteSheet;
 import org.images.Assets;
 import org.input.KeyManager;
@@ -40,11 +41,13 @@ public class Game implements Runnable{
 		keyManager = new KeyManager();
 		
 	}
-	
+	private GameCamera gameCamera;
 	private void init() {
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
+		
+		gameCamera = new GameCamera(this, 0, 0);
 		
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
@@ -114,6 +117,18 @@ public class Game implements Runnable{
 	
 	public KeyManager getKeyManager() {
 		return keyManager;
+	}
+	
+	public GameCamera getGameCamera() {
+		return gameCamera;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
 	}
 	
 	public synchronized void start() {
