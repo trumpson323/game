@@ -12,11 +12,11 @@ public class Assets {
 	
 	public static void init() {
 		
-		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/spritesheet.png"));
+		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/SSpritesheet (1).png"));
 		
-		grass = sheet.crop(width + 6, 0, width, height);
+		player = sheet.crop(0, width, width, height);
 		stone = sheet.crop(0, 0, width, height);
-		
+		grass = sheet.crop(width, 0, width, height);
 		
 	}
 	

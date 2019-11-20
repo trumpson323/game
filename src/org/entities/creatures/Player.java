@@ -44,7 +44,7 @@ public class Player extends Creature{
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.grass, (int) (x- game.getGameCamera().getxOffset()), (int) (y- game.getGameCamera().getyOffest()), width, height, null);
+		g.drawImage(Assets.player, (int) (x- game.getGameCamera().getxOffset()), (int) (y- game.getGameCamera().getyOffest()), width, height, null);
 	}
 	
 
