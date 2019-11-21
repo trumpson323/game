@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import org.display.Display;
 import org.display.GameCamera;
+import org.display.Handler;
 import org.display.SpriteSheet;
 import org.images.Assets;
 import org.input.KeyManager;
@@ -42,15 +43,19 @@ public class Game implements Runnable{
 		
 	}
 	private GameCamera gameCamera;
+	
+	private Handler handler;
+	
 	private void init() {
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
 		
 		gameCamera = new GameCamera(this, 0, 0);
+		handler = new Handler(this);
 		
-		gameState = new GameState(this);
-		menuState = new MenuState(this);
+		gameState = new GameState(handler);
+		menuState = new MenuState(handler);
 		State.setState(gameState);
 	}
 	
