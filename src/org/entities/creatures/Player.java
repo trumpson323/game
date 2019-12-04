@@ -15,7 +15,7 @@ public class Player extends Creature{
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
 		bounds.x = 16;
-		bounds.x = 32;
+		bounds.y = 32;
 		bounds.width = 32;
 		bounds.height = 32;
 	}
@@ -52,8 +52,8 @@ public class Player extends Creature{
 	public void render(Graphics g) {
 		g.drawImage(Assets.player, (int) (x- handler.getGameCamera().getxOffset()), (int) (y- handler.getGameCamera().getyOffest()), width, height, null);
 		
-		g.setColor(Color.red);
-		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), (int) (y + bounds.y - handler.getGameCamera().getyOffest()), bounds.width, bounds.height);
+		//g.setColor(Color.red);
+		//g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), (int) (y + bounds.y - handler.getGameCamera().getyOffest()), bounds.width, bounds.height);
 	}
 	
 

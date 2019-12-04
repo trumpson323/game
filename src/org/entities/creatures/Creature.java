@@ -8,7 +8,7 @@ import org.entities.Entity;
 public abstract class Creature extends Entity{
 
 	public static final int DEFAULT_HEALTH = 10;
-	public static final float DEFAULT_SPEED = 3.0f;
+	public static final float DEFAULT_SPEED = 5.0f;
 	public static final int DEFAULT_CREATURE_WIDTH = 64, 
 							DEFAULT_CREATURE_HEIGHT = 64;
 	
@@ -35,6 +35,8 @@ public abstract class Creature extends Entity{
 			
 			if(!collisionWithTile(tx, (int) (y + bounds.y) / Tile.TILEHEIGHT) && !collisionWithTile(tx, (int)(y + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
 				x += xMove;
+			} else {
+				x = tx * Tile.TILEWIDTH- bounds.x - bounds.width-1;
 			}
 			
 		} else if(xMove < 0) {//left
@@ -42,6 +44,8 @@ public abstract class Creature extends Entity{
 			
 			if(!collisionWithTile(tx, (int) (y + bounds.y) / Tile.TILEHEIGHT) && !collisionWithTile(tx, (int)(y + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
 				x += xMove;
+			} else {
+				x = tx * Tile.TILEWIDTH + Tile.TILEWIDTH - bounds.x;
 			}
 		}
 		
@@ -52,12 +56,16 @@ public abstract class Creature extends Entity{
 			int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
 			if(!collisionWithTile((int)(x + bounds.x) / Tile.TILEWIDTH, ty) && !collisionWithTile((int)(x + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
 				y += yMove;
+			} else {
+				y = ty * Tile.TILEHEIGHT + Tile.TILEHEIGHT - bounds.y;
 			}
 			
 		} else if(yMove > 0) {//down
 			int ty = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILEHEIGHT;
 			if(!collisionWithTile((int)(x + bounds.x) / Tile.TILEWIDTH, ty) && !collisionWithTile((int)(x + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
 				y += yMove;
+			} else {
+				y = ty * Tile.TILEHEIGHT - bounds.y - bounds.height - 1;
 			}
 			
 		}
