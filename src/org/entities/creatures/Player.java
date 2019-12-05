@@ -1,5 +1,6 @@
 package org.entities.creatures;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -10,19 +11,20 @@ import org.images.Assets;
 public class Player extends Creature{
 
 	private Animations down, left, right, up;
+	private int direction = 1;
 	
 	public Player(Handler handler, float x, float y) {
-		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+		super(handler, x, y, 80, 80);
 		
-		bounds.x = 16;
-		bounds.y = 32;
-		bounds.width = 32;
+		bounds.x = 26;
+		bounds.y = 43;
+		bounds.width = 24;
 		bounds.height = 32;
 		
-		down = new Animations(100, Assets.player_down);
-		up = new Animations(100, Assets.player_up);
-		left = new Animations(100, Assets.player_left);
-		right = new Animations(100, Assets.player_right);
+		down = new Animations(135, Assets.player_down);
+		up = new Animations(135, Assets.player_up);
+		left = new Animations(135, Assets.player_left);
+		right = new Animations(135, Assets.player_right);
 	}
 
 	@Override
@@ -66,16 +68,23 @@ public class Player extends Creature{
 	}
 	
 	private BufferedImage getCurrentAnimationFrame() {
-		if(xMove < 0) {
-			return left.getCurrentFrame();
-		} else if(xMove > 0) {
-			return right.getCurrentFrame();
-		} else if (yMove < 0) {
-			return up.getCurrentFrame();
-		} else if(yMove > 0) {
-			return down.getCurrentFrame();
-		} else {
-			return Assets.playerStill;
+		
+			if(xMove < 0) {
+				direction = 2;
+				return left.getCurrentFrame();
+			} else if(xMove > 0) {
+				direction = 3;
+				return right.getCurrentFrame();
+			} else if (yMove < 0) {
+				direction = 0;
+				return up.getCurrentFrame();
+			} else if(yMove > 0) {
+				direction = 1;
+				return down.getCurrentFrame();
+			} 
+		else {
+				return Assets.playerStill[direction];
 		}
+		
 	}
 }

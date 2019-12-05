@@ -4,7 +4,8 @@ import java.awt.Graphics;
 
 import org.Tiles.Tile;
 import org.display.Handler;
-import org.game.Game;
+import org.entities.EntityManager;
+import org.entities.creatures.Player;
 import org.utils.Utils;
 
 public class World {
@@ -15,13 +16,20 @@ public class World {
 	private int spawnX, spawnY;
 	private int[][] tiles;
 	
+	private EntityManager entityManager; 
+	
 	public World(Handler handler, String path) {
 		this.handler = handler;
+		entityManager = new EntityManager(handler, new Player(handler, 0, 0));
+		
 		loadWorld(path);
+		
+		entityManager.getPlayer().setX(spawnX);
+		entityManager.getPlayer().setY(spawnY);
 	}
 
 	public void update() {
-		
+		entityManager.update();
 	}
 	
 	public void render(Graphics g) {
@@ -37,6 +45,8 @@ public class World {
 						(int)(y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffest()));
 			}
 		}
+		
+		//entityManager.render(g);
 	}
 	
 	public Tile getTile(int x, int y){
