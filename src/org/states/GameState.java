@@ -15,22 +15,22 @@ public class GameState extends State{
 	
 	public GameState(Handler handler) {
 		super(handler);
-		world = new World(handler, "res/worlds/world1.txt");
+		world = new World(handler, "res/worlds/world2.txt");
 		handler.setWorld(world);
-		player = new Player(handler, 100, 100);
+		//player = new Player(handler, 100, 100);
 	
 		
 	}
 	
 	public void tick() {
 		world.update();
-		player.tick();
+		//player.tick();
 	
 	}
 
 	public void render(Graphics g) {
 		world.render(g);
-		player.render(g);
+		//player.render(g);
 	
 	}
 
